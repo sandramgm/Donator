@@ -4,6 +4,8 @@ jQuery(document).ready(function($) {
 		maxWidth: document.width,
 		minWidth: document.width - 100,
 		maxHeight: document.height - 100,
+	       width: 700,
+	       height: 500,
 		scrollOutside:true
 	});
 });

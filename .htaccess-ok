@@ -11,5 +11,5 @@ RewriteRule . /index.php [L]
 
 # END WordPress
 
-AddType video/webm             .webm
+AddType video/webm            .webm
 AddType video/mp4             .mp4
