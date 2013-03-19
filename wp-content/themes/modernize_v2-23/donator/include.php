@@ -14,13 +14,14 @@
 	*/
 
 function donator_scripts_method() {
-    wp_enqueue_script('flowplayer', get_template_directory_uri() . '/donator/js/flowplayer/flowplayer.js' , 'jquery', 'v5.3.2' );
+    wp_enqueue_script('flowplayer', get_template_directory_uri() . '/donator/js/flowplayer/flowplayer.js' , 'jquery', 'v5.3.2', true );
     wp_enqueue_script('fancybox', get_template_directory_uri() . '/donator/js/fancybox/fancybox.js' ,  'jquery', 'v2.4.1', true );
 }
 
 function donator_widgets_method () {
     wp_enqueue_script('lightbox', get_template_directory_uri() . '/donator/widgets/DonatorLightBox.js' , 'fancybox', 'v0.1' );
     wp_enqueue_script('video', get_template_directory_uri() . '/donator/widgets/DonatorVideo.js' , 'flowplayer', 'v0.1' );
+    wp_enqueue_script('scripts-default', get_template_directory_uri() . '/donator/js/scripts-default.js' , false, 'v0.1', true );
 }
 
 function donator_styles_method() {
@@ -32,4 +33,3 @@ function donator_styles_method() {
 add_action('wp_enqueue_scripts', 'donator_scripts_method'); 
 add_action('wp_enqueue_scripts', 'donator_widgets_method');
 add_action('wp_print_styles', 'donator_styles_method'); 
-?> 

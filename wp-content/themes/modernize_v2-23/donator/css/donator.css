@@ -161,7 +161,7 @@ h1 a {
 .newsman-form-item-html {
 	display:none;
 } 
-.is-splash.flowplayer .fp-ui, .is-paused.flowplayer .fp-ui {
+.donator-video.is-splash.flowplayer .fp-ui, .donator-video.is-paused.flowplayer .fp-ui {
 	background-image:url(../images/donator-video.png);
 	background-size: auto;
 }
