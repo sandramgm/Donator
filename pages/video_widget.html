@@ -2,14 +2,13 @@
 TAN SÓLO CON 30 SEGUNDOS PODRÁS COLABORAR GRATIS CON UNA BUENA CAUSA</h1>
 <ul class="video-list">
 	<li>
-	
 		<a class="Donator_LightboxLink" href="#videoDonator" data-campaign="donator">
 			<span class="campaign-title">NIKE</span>
 			<span class="campaing-donation">1.200 €</span>
 		</a>
-		<div id="videoDonator" class="video-lightbox" style="display: none;">
+		<div id="Donator_video_lightbox" class="video-lightbox" style="display: none;">
 			<div class="lightbox-content">
-				<div class="video-wrp flowplayer is-splash main minimalist"></div>
+				<div id="Donator_video"></div>
 				<div class="info-wrp">
 					<div class="social-icon-wrapper">
 						<div class="social-icon" style="opacity: 0.55;"><a target="_blank" href="https://www.facebook.com/donatorWorld">
@@ -20,18 +19,20 @@ TAN SÓLO CON 30 SEGUNDOS PODRÁS COLABORAR GRATIS CON UNA BUENA CAUSA</h1>
 							<img src="http://donator.es/wp-content/themes/modernize_v2-23/images/icon/light/social/email.png" alt="email"></a></div>
 					</div>
 					<div class="lightbox-content campaign-info">
-						<h2>Nike</h2>
+						<a id="other-pause" href="">Nike</a>
 						<span>DONADO:</span><span>1.200 €</span>
 					</div>
 				</div>
 			</div>
 			<div class="lightbox-content ong-wrp">
 				<span>Quiero ayudar con mi tiempo a:</span>
-				<ul class="ong-list">
-					<li class="ong">PALLAPUPAS</li>
-					<li class="ong">MÉDICOS SIN FRONTERAS</li>
-					<li class="ong">SPAM</li>
-				</ul>
+				<div id="Donator_ONGs">
+					<ul class="ong-list">
+						<li class="ong">PALLAPUPAS</li>
+						<li class="ong">MÉDICOS SIN FRONTERAS</li>
+						<li class="ong">SPAM</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	
@@ -125,5 +126,9 @@ TAN SÓLO CON 30 SEGUNDOS PODRÁS COLABORAR GRATIS CON UNA BUENA CAUSA</h1>
 }
 .ong.active {
 	color:#232323;
+}
+
+.flowplayer .fp-buffer, .flowplayer .fp-progress {
+  cursor: default;
 }
 </style>
