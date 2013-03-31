@@ -165,3 +165,109 @@ h1 a {
 	background-image:url(../images/donator-video.png);
 	background-size: auto;
 }
+
+/* VIDEOS */
+.video-list li {
+	list-style: none;
+	float: left;
+	margin-right: 15px;
+	width:25%;
+}
+.Donator_LightboxLink {
+	background: #232323;
+	display: block;
+	width: 100%;
+	height: 100px;
+	color: #fff;
+	text-align: center;
+	font-size: 22px;
+}
+.video-lightbox {
+	color:#fff;
+	font-size:16px;
+}
+.fancybox-skin {
+	background: #65b2c5;
+}
+.lightbox-content .social-icon-wrapper {
+	float:left;
+}
+.campaign-info {
+	margin-top: 20px;
+}
+.campaign-info h2 {
+	color:#fff;
+	font-size:30px;
+}
+.campaign-title {
+	margin-top: 10px;
+	display: block;
+	float: left;
+	width: 100%;
+	margin-bottom: 10px;
+}
+.lightbox-content {
+	float:left;
+	width:100%;
+}
+.video-wrp {
+	float:left;
+	width:65%;
+}
+.video-wrp.is-splash, .donator-video.is-splash {
+	background-image: url(../images/donator-video-splash.png);
+	background-color: #ccc;
+}
+.info-wrp {
+	float:right;
+	width:32%;
+}
+.lightbox-content {
+	
+}
+.ong-wrp {
+	margin-top: 20px;
+	font-size: 20px;
+}
+.ong-list {
+	list-style:none;
+	margin:0;
+}
+.ong-list li {
+	float:left;
+	margin-right:15px;
+}
+.ong {
+	background:#fff;
+	color:#ccc;
+	line-height:25px;
+	border:1px solid #ccc;
+	text-align:center;
+	padding:5px;
+}
+.ong.active {
+	color:#232323;
+}
+.message {
+	display: block;
+	float: left;
+	clear: both;
+	color: red;
+	font-size: 12px;
+	width: 365px;
+	background: white;
+	opacity: 0.5;
+	margin-top: 5px;
+}
+.dona {
+	/*background-image:url(../images/donator-video.png);*/
+	background-image:url(../images/dona.png);
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 110px;
+	height: 123px;
+}
+.flowplayer .fp-buffer, .flowplayer .fp-progress {
+  cursor: default;
+}

@@ -15,17 +15,14 @@ function Donator_Object_Video (campaign) {
 	this._analytics = "UA-38607035-1";
 	this._settings = {
 		campaign:campaign,
-		//src_webm: 'http://donator.es/wp-content/themes/modernize_v2-23/donator/videos/'+ campaign +'.webm',
-		//src_mp4: 'http://donator.es/wp-content/themes/modernize_v2-23/donator/videos/'+ campaign +'.mp4',
-		
-		src_webm: 'http://stream.flowplayer.org/black/470x250.webm',
-		src_mp4: 'http://stream.flowplayer.org/black/470x250.mp4',
+		/*videoObj._settings.src_webm: 'http://donator.es/wp-content/themes/modernize_v2-23/donator/videos/'+ campaign +'.webm',
+		videoObj._settings.src_mp4: 'http://donator.es/wp-content/themes/modernize_v2-23/donator/videos/'+ campaign +'.mp4',*/
 		
 		placeholder: jQuery('#Donator_video'),
 		contentPlaceholder: jQuery('#Donator_video_lightbox'),
 		ongPlaceholder: jQuery('#Donator_ONGs'),
 		
-		videoLink: jQuery('.Donator_LightboxLink');,
+		videoLink: jQuery('.Donator_LightboxLink'),
 		player:null,
 		interval:null
 	};
@@ -33,20 +30,16 @@ function Donator_Object_Video (campaign) {
 
 Donator_Object_Video.prototype = {
 	/**
-	 * Contruct the html5 video element
+	 * Generates the html5 video element
 	 * */
 	videoHTML: function() {
 		var self = this;
 		
-		var html;
-		html =  '<div class="video-wrp flowplayer main minimalist">' +
-			    '    <video preload="none">' +
-				'	    <source type="video/webm" src="'+ this._settings.src_webm +'"/>' +
-				'	    <source type="video/mp4" src="'+ this._settings.src_mp4 +'"/>' +
-				'    </video> ' +
-				'</div>';
+		var videoHTML = this.videoHTMLcode();
+		this._settings.placeholder.html(videoHTML);
 		
-		this._settings.placeholder.html(html);
+		var ongHTMLoriginal = this.ongHTMLoriginal();
+		this._settings.ongPlaceholder.html(ongHTMLoriginal);
 		
 		jQuery('.video-wrp', this._settings.placeholder).flowplayer({
 			analytics: self._analytics,
@@ -66,15 +59,45 @@ Donator_Object_Video.prototype = {
 	},
 	
 	/**
-	 * Generates the html code for the list of ONGs available for the campaign
+	 * Generates the html  for the video to be played
+	 * */	
+	videoHTMLcode: function() {
+		var html;
+		html =  '<div class="video-wrp flowplayer main minimalist">' +
+			    '    <video preload="none">' +
+				'	    <source type="video/webm" src="'+ this._settings.src_webm +'"/>' +
+				'	    <source type="video/mp4" src="'+ this._settings.src_mp4 +'"/>' +
+				'    </video> ' +
+				'</div>';
+		return html;
+	},
+
+	/**
+	 * Generates the html  for the video to be played
+	 * */	
+	ongHTMLoriginal: function() {
+		var html;
+		html =  '<ul class="ong-list"> ' +
+			'<li class="ong"><img src="/donator/images/ong/logo_pallapupas_gris.png"></li>' +
+			'<li class="ong"><img src="/donator/images/ong/logo_refugi_mataro_gris.png"></li>' +
+			'<li class="ong"><img src="/donator/images/ong/logo_sonrisas_bombay_gris.png"></li>' +
+			'</ul>' + 
+			'<span class="message">RECUERDA: Después de ver el vídeo selecciona la ONG con que desees colaborar!</span>';
+		return html;
+	},
+	
+	/**
+	 * Generates the html code for the list of ONGs available for the campaign (ACTIVE)
 	 * */
 	ongHTML: function() {
 		var self = this;
-		var html = '<li class="ong"><a href="">PALLAPUPAS</li>' +
-		    '<li class="ong">M�DICOS SIN FRONTERAS</li>' +
-		    '<li class="ong">SPAM</li>'; 
+		var html = '<form><ul class="ong-list ong-active">' +
+			    '<li class="ong"><a href=""><img src="/donator/images/ong/logo_pallapupas.png"></a></li>' +
+			    '<li class="ong"><a href=""><img src="/donator/images/ong/logo_refugi_mataro.png"></a></li>' +
+			    '<li class="ong"><a href=""><img src="/donator/images/ong/logo_sonrisas_bombay.png"></a></li>' +
+		    '</ul></form>';
 		
-		
+		this._settings.ongPlaceholder.html(html);
 	},
 	
 	/**
@@ -82,15 +105,21 @@ Donator_Object_Video.prototype = {
 	 * */
 	showLightbox: function() {
 		var self = this;
+		var width = jQuery(window).width() - 100;
+		var height = jQuery(window).height() - 100;
+		
+		if(donatorVideo.playing == true) {
+			donatorVideo.pause();
+		}
 		
 		this.videoHTML();
 		
 		this._settings.videoLink.fancybox({
-			maxWidth: document.width,
-			minWidth: document.width - 100,
-			maxHeight: document.height - 100,
-		       width: 700,
-		       height: 500,
+			//maxWidth: document.width,
+			//minWidth: document.width - 100,
+			//maxHeight: document.height - 100,
+		    minWidth: width,
+		    minHeight: height,
 		    content: self._settings.contentPlaceholder,
 			scrollOutside:true,
 			afterClose : function() {
@@ -101,8 +130,12 @@ Donator_Object_Video.prototype = {
 	},
 	
 	videoFinished: function() {
+		var self = this; 
 		if(this._settings.player.finished) {
 			console.log('VIDEO FINISHED');
+			
+			/* Add ONGs links */
+			self.ongHTML();
 		}
 	},
 	
@@ -111,7 +144,10 @@ Donator_Object_Video.prototype = {
 	},
 	
 	reset: function() {
-		if(this._settings) this._settings.placeholder.empty();
+		if(this._settings) {
+			this._settings.placeholder.empty();
+			this._settings.ongPlaceholder.empty();
+		}
 		this._settings = null;
 		this._status = 'none';
 	}

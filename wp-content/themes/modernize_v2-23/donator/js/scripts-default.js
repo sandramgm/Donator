@@ -1,4 +1,8 @@
 var isActive, videoObj;
+var videoLink = jQuery('.Donator_LightboxLink');
+
+jQuery('.donator-video').flowplayer();
+var donatorVideo = jQuery('.donator-video').flowplayer();
 
 videoLink.click(function() {
     var campaign = jQuery(this).attr('data-campaign');
@@ -7,7 +11,15 @@ videoLink.click(function() {
      * Create new video object and open a lightbox 
      * */
     videoObj = createVideo(campaign);
- 
+	if(campaign!=null){
+		videoObj._settings.src_webm = 'http://donator.es/wp-content/themes/modernize_v2-23/donator/videos/'+ campaign +'.webm';
+		videoObj._settings.src_mp4 = 'http://donator.es/wp-content/themes/modernize_v2-23/donator/videos/'+ campaign +'.mp4';
+	} else {
+		videoObj._settings.src_webm = 'http://stream.flowplayer.org/black/470x250.webm';
+		videoObj._settings.src_mp4 = 'http://stream.flowplayer.org/black/470x250.mp4';
+	}
+    
+    
     /**
      * Display lightbox with campaign details (video, info, ONGs)
      * */
