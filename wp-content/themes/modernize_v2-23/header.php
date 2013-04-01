@@ -183,7 +183,7 @@
 		</div> <!-- header-wrapper -->
 	</div>
 </header>
-<nav class="nav-main">
+<nav id="donator-menu" class="nav-main">
 	<div class="container">
 		<!-- Navigation and Search Form -->
 		<div class="sixteen columns mt0">
