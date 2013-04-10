@@ -1,10 +1,20 @@
 var isActive, videoObj;
 var videoLink = jQuery('.Donator_LightboxLink');
 var donatorSplashImages = '/donator/images/splash/';
+var videoDonator = null;
 
-/*for (var i = 1; i <= videoLink.length; i++) {
-	videoLink[i].css('background-image', 'url(' + donatorSplashImages + videoLink[i].attr('data-campaign') + '.png)');
-}*/
+/*var test = "ESTO ES UNA PRUEBA";
+jQuery('#donation-done').html(test);
+jQuery('#donation-done').show('slow');
+jQuery('#donation-done').addClass('testing');
+jQuery('#donation-done').css('display','block');*/
+
+var jsonDonatorCampaigns = "<?= $json_campaigns ?>";//"<?= $json_campaigns ?>';
+
+//var url = "<?php echo $donator_page; ?>";
+//var url = "http://donator.es/nuestros-videos-2/#videoDonator";
+var active_page = "http://donator.es/wp-content/themes/modernize_v2-23/donator/model.php";
+
 
 var stickyHeader = jQuery('#donator-menu').offset().top;
 jQuery(window).scroll(function(){

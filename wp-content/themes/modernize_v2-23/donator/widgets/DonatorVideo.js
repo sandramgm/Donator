@@ -15,6 +15,7 @@ function Donator_Object_Video (campaign, contentPlaceholder, videoPlaceholder, i
 	this._analytics = "UA-38607035-1";
 	this._settings = {
 		campaign:campaign,
+		id_campaign:1,
 		/*videoObj._settings.src_webm: 'http://donator.es/wp-content/themes/modernize_v2-23/donator/videos/'+ campaign +'.webm',
 		videoObj._settings.src_mp4: 'http://donator.es/wp-content/themes/modernize_v2-23/donator/videos/'+ campaign +'.mp4',*/
 		
@@ -26,6 +27,7 @@ function Donator_Object_Video (campaign, contentPlaceholder, videoPlaceholder, i
 		infoPlaceholder: infoPlaceholder,
 		ongPlaceholder: ongPlaceholder,
 		videoLink: videoLink,
+		messagePlaceholder: jQuery('#donation-done'),
 		
 		/*contentPlaceholder: jQuery('#Donator_video_lightbox'),
 		infoPlaceholder:jQuery('#Donator_video_info'),
@@ -48,7 +50,6 @@ Donator_Object_Video.prototype = {
 		this._settings.placeholder.html(videoHTML);
 		
 		var ongHTMLoriginal = this.ongHTMLoriginal();
-		this._settings.ongPlaceholder.html(ongHTMLoriginal);
 		
 		var infoHTML = this.infoHTML(this._settings.campaign);
 		this._settings.infoPlaceholder.html(infoHTML);
@@ -106,6 +107,8 @@ Donator_Object_Video.prototype = {
 			'<li class="ong"><img src="/donator/images/ong/logo_refugi_mataro_gris.png"></li>' +
 			'<li class="ong"><img src="/donator/images/ong/logo_sonrisas_bombay_gris.png"></li>' +
 			'</ul>'; 
+		
+		this._settings.ongPlaceholder.html(html);
 		return html;
 	},
 	
@@ -117,18 +120,21 @@ Donator_Object_Video.prototype = {
 		var html = '<span>Selecciona la ONG con quien quieres colaborar:</span>' +
 			'<p></p>' +
 			'<form><ul class="ong-list ong-active">' +
-		    '<li class="ong"><a href=""><img src="/donator/images/ong/logo_pallapupas.png"></a></li>' +
-		    '<li class="ong"><a href=""><img src="/donator/images/ong/logo_refugi_mataro.png"></a></li>' +
-		    '<li class="ong"><a href=""><img src="/donator/images/ong/logo_sonrisas_bombay.png"></a></li>' +
+		    '<li class="ong"><a href="#" data-nif="1"><img src="/donator/images/ong/logo_pallapupas.png"></a></li>' +
+		    '<li class="ong"><a href="#" data-nif="2"><img src="/donator/images/ong/logo_refugi_mataro.png"></a></li>' +
+		    '<li class="ong"><a href="#" data-nif="3"><img src="/donator/images/ong/logo_sonrisas_bombay.png"></a></li>' +
 		    '</ul></form>';
 		
 		this._settings.ongPlaceholder.html(html);
+		
+		jQuery(".ong").bind('click', 'a', function() { self.saveDonation(); } );
 	},
 	
 	/**
 	 * Campaign info
 	 * */
 	infoHTML:function(campaign) {
+		/*
 		if(campaign == 'deutscheBank') {
 			var html = '<h2 class="campaign-title">Deutsche Bank</h2>' +
 				'<p>Construyendo un capital social</p>' +
@@ -139,6 +145,29 @@ Donator_Object_Video.prototype = {
 				'<p>Llevamos donados: <span class="campaing-donation">3.100 €</span></p>' ;	
 		} else {
 			var html = '<h2 class="campaign-title">DONATOR</h2>' +
+				'<p>Gracias a la ayuda de miles de personas estamos colaborando con distintas ONGs y fundaciones para hacer de este mundo un lugar mejor.</p>' +
+				'<br>' +
+				'<p>Muchas gracias por tu apoyo y colaboración.</p>' +
+				'<p>Llevamos donados: <span class="campaing-donation">1.200 €</span></p>' ;
+		}*/
+		
+		switch (campaign) {
+			case 'deutscheBank':
+				var html = '<h2 class="campaign-title">Deutsche Bank</h2>' +
+				'<p>Construyendo un capital social</p>' +
+				'<p>Deutsche Bank concibe la Responsabilidad Social Corporativa como parte integral de su actividad. La generación de resultados contribuye al desarrollo de las sociedades en las que está presente. </p>' +
+				'<p>Por ello, en España lleva a cabo una estrategia de Responsabilidad Social, compartiendo objetivos con el Grupo Deutsche Bank en el ámbito internacional, pero adaptada a las características y necesidades locales. </p>' +
+				'<br>' +
+				'<p>Con tu ayuda y Deutsche bank ya hemos donado:.</p>' +
+				'<p>Llevamos donados: <span class="campaing-donation">3.100 €</span></p>' ;
+				break;
+			case 'renault':
+				var html = '<h2 class="campaign-title">Renault</h2>' +
+				'<p>Renault y su compromiso con la sociedad, colabora directamente por un mundo más sostenible con la Fundación Renault para la movilidad sostenible, esta es la institución que tiene como fin colaborar en la aplicación práctica del compromiso con la responsabilidad social de RENAULT en España, directamente y con la participación de las filiales del Grupo RENAULT en España.</p>' +
+				'<br>' ;
+				break;
+			default:
+				var html = '<h2 class="campaign-title">DONATOR</h2>' +
 				'<p>Gracias a la ayuda de miles de personas estamos colaborando con distintas ONGs y fundaciones para hacer de este mundo un lugar mejor.</p>' +
 				'<br>' +
 				'<p>Muchas gracias por tu apoyo y colaboración.</p>' +
@@ -155,8 +184,10 @@ Donator_Object_Video.prototype = {
 		var width = jQuery(window).width() - 100;
 		var height = jQuery(window).height() - 100;
 		
-		if(videoDonator._settings.player.playing == true) {
-			videoDonator._settings.player.pause();
+		if(videoDonator != null) {
+			if(videoDonator._settings.player.playing == true) {
+				videoDonator._settings.player.pause();
+			}
 		}
 		
 		this.videoHTML();
@@ -195,10 +226,31 @@ Donator_Object_Video.prototype = {
 			this._settings.placeholder.empty();
 			this._settings.ongPlaceholder.empty();
 			this._settings.infoPlaceholder.empty();
+			this._settings.messagePlaceholder.empty();
 		}
 		this._settings = null;
 		this._status = 'none';
+	},
+	
+	/**
+	 * This function is used after the user has seen the video and click 
+	 * on one of the ONGs logos to donate hes time, the function must 
+	 * save the click on the data base and show a success message to the user*/
+	saveDonation: function() {
+		var self = this;
+		var html = '<div id="donation-done">Muchas gracias, acabas de donar 0,20€ a una buena causa</div>';
+		this._settings.messagePlaceholder.replaceWith(html);
+		this._settings.messagePlaceholder.show("slow");
+		this._settings.player.disable(true);
+		this.ongHTMLoriginal();
+		
+/*		jQuery.ajax({
+			type: "POST",
+			url: active_page,
+			success: function () {
+				var html = '<div>Muchas gracias, acabas de donar 0,20€ a una buena causa</div>'
+			}
+		});*/
 	}
-
 	
 };

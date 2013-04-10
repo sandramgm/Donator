@@ -13,6 +13,11 @@
 	*	---------------------------------------------------------------------
 	*/
 
+// INCLUDE DONATOR FILEs -->
+//require_once( TEMPLATEPATH . '/donator/model.php' );
+//require_once( 'donator/model.php' );
+
+
 function donator_scripts_method() {
     wp_enqueue_script('flowplayer', get_template_directory_uri() . '/donator/js/flowplayer/flowplayer.js' , 'jquery', 'v5.3.2', true );
     wp_enqueue_script('fancybox', get_template_directory_uri() . '/donator/js/fancybox/fancybox.js' ,  'jquery', 'v2.4.1', true );
