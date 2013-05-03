@@ -45,20 +45,30 @@ Donator_Object_Video.prototype = {
 	 * */
 	videoHTML: function() {
 		var self = this;
+		var html;
 		
-		var videoHTML = this.videoHTMLcode();
-		this._settings.placeholder.html(videoHTML);
+		html =  '<div class="video-wrp flowplayer main minimalist">' +
+		    '    <video preload="none">' +
+			'	    <source type="video/webm" src="'+ this._settings.src_webm +'"/>' +
+			'	    <source type="video/mp4" src="'+ this._settings.src_mp4 +'"/>' +
+			'    </video> ' +
+			'</div>';
+		this._settings.placeholder.html(html);
 		
-		var ongHTMLoriginal = this.ongHTMLoriginal();
+		html =  '<span>Después de ver el vídeo podrás seleccionar la ONG con que desees colaborar:</span>' +
+			'<p></p>' +
+			'<ul class="ong-list"> ' +
+			'<li class="ong"><img src="/donator/images/ong/logo_pallapupas_gris.png"></li>' +
+			'<li class="ong"><img src="/donator/images/ong/logo_refugi_mataro_gris.png"></li>' +
+			'<li class="ong"><img src="/donator/images/ong/logo_sonrisas_bombay_gris.png"></li>' +
+			'</ul>'; 
+		this._settings.ongPlaceholder.html(html);
 		
 		var infoHTML = this.infoHTML(this._settings.campaign);
-		this._settings.infoPlaceholder.html(infoHTML);
 		
 		this.activateVideoPlayer(jQuery('.video-wrp', this._settings.placeholder));
 		this._settings.player = jQuery('.video-wrp', this._settings.placeholder).flowplayer();
 
-		//jQuery('.video-wrp.is-splash').css('background-image', 'url(' + self._settings.splashImage + ')');
-		
 		/* This code is needed to disable the seeking functionality */
         jQuery(".fp-timeline").unbind("mousedown touchstart");
         jQuery(".flowplayer").removeClass("is-touch");
@@ -82,75 +92,11 @@ Donator_Object_Video.prototype = {
 	},
 	
 	/**
-	 * Generates the html  for the video to be played
-	 * */	
-	videoHTMLcode: function() {
-		var html;
-		html =  '<div class="video-wrp flowplayer main minimalist">' +
-			    '    <video preload="none">' +
-				'	    <source type="video/webm" src="'+ this._settings.src_webm +'"/>' +
-				'	    <source type="video/mp4" src="'+ this._settings.src_mp4 +'"/>' +
-				'    </video> ' +
-				'</div>';
-		return html;
-	},
-
-	/**
-	 * Generates the html  for the video to be played
-	 * */	
-	ongHTMLoriginal: function() {
-		var html;
-		html =  '<span>Después de ver el vídeo podrás seleccionar la ONG con que desees colaborar:</span>' +
-			'<p></p>' +
-			'<ul class="ong-list"> ' +
-			'<li class="ong"><img src="/donator/images/ong/logo_pallapupas_gris.png"></li>' +
-			'<li class="ong"><img src="/donator/images/ong/logo_refugi_mataro_gris.png"></li>' +
-			'<li class="ong"><img src="/donator/images/ong/logo_sonrisas_bombay_gris.png"></li>' +
-			'</ul>'; 
-		
-		this._settings.ongPlaceholder.html(html);
-		return html;
-	},
-	
-	/**
-	 * Generates the html code for the list of ONGs available for the campaign (ACTIVE)
-	 * */
-	ongHTML: function() {
-		var self = this;
-		var html = '<span>Selecciona la ONG con quien quieres colaborar:</span>' +
-			'<p></p>' +
-			'<form><ul class="ong-list ong-active">' +
-		    '<li class="ong"><a href="#" data-nif="1"><img src="/donator/images/ong/logo_pallapupas.png"></a></li>' +
-		    '<li class="ong"><a href="#" data-nif="2"><img src="/donator/images/ong/logo_refugi_mataro.png"></a></li>' +
-		    '<li class="ong"><a href="#" data-nif="3"><img src="/donator/images/ong/logo_sonrisas_bombay.png"></a></li>' +
-		    '</ul></form>';
-		
-		this._settings.ongPlaceholder.html(html);
-		
-		jQuery(".ong").bind('click', 'a', function() { self.saveDonation(); } );
-	},
-	
-	/**
 	 * Campaign info
 	 * */
 	infoHTML:function(campaign) {
-		/*
-		if(campaign == 'deutscheBank') {
-			var html = '<h2 class="campaign-title">Deutsche Bank</h2>' +
-				'<p>Construyendo un capital social</p>' +
-				'<p>Deutsche Bank concibe la Responsabilidad Social Corporativa como parte integral de su actividad. La generación de resultados contribuye al desarrollo de las sociedades en las que está presente. </p>' +
-				'<p>Por ello, en España lleva a cabo una estrategia de Responsabilidad Social, compartiendo objetivos con el Grupo Deutsche Bank en el ámbito internacional, pero adaptada a las características y necesidades locales. </p>' +
-				'<br>' +
-				'<p>Con tu ayuda y Deutsche bank ya hemos donado:.</p>' +
-				'<p>Llevamos donados: <span class="campaing-donation">3.100 €</span></p>' ;	
-		} else {
-			var html = '<h2 class="campaign-title">DONATOR</h2>' +
-				'<p>Gracias a la ayuda de miles de personas estamos colaborando con distintas ONGs y fundaciones para hacer de este mundo un lugar mejor.</p>' +
-				'<br>' +
-				'<p>Muchas gracias por tu apoyo y colaboración.</p>' +
-				'<p>Llevamos donados: <span class="campaing-donation">1.200 €</span></p>' ;
-		}*/
-		
+		var self = this;
+
 		switch (campaign) {
 			case 'deutscheBank':
 				var html = '<h2 class="campaign-title">Deutsche Bank</h2>' +
@@ -173,7 +119,8 @@ Donator_Object_Video.prototype = {
 				'<p>Muchas gracias por tu apoyo y colaboración.</p>' +
 				'<p>Llevamos donados: <span class="campaing-donation">1.200 €</span></p>' ;
 		}
-		return html;
+		//this.addContent(self._settings.infoPlaceholder, html);
+		this._settings.infoPlaceholder.html(html);
 	},
 	
 	/**
@@ -205,28 +152,46 @@ Donator_Object_Video.prototype = {
 		        return;
 		    }
 		});
+		
+		jQuery('#donation-done').click(function(){
+			jQuery.fancybox.close();
+		});
 	},
 	
 	videoFinished: function() {
 		var self = this; 
 		if(this._settings.player.finished) {
-			console.log('VIDEO FINISHED');
-			
 			/* Add ONGs links */
-			self.ongHTML();
+			if(!self._settings.contentPlaceholder.hasClass('finito')) {
+				//self.ongHTML();
+				var html = '<span>Selecciona la ONG con quien quieres colaborar:</span>' +
+							'<p></p>' +
+							'<form><ul class="ong-list ong-active">' +
+						    '<li class="ong"><a href="#" data-nif="1"><img src="/donator/images/ong/logo_pallapupas.png"></a></li>' +
+						    '<li class="ong"><a href="#" data-nif="2"><img src="/donator/images/ong/logo_refugi_mataro.png"></a></li>' +
+						    '<li class="ong"><a href="#" data-nif="3"><img src="/donator/images/ong/logo_sonrisas_bombay.png"></a></li>' +
+						    '</ul></form>';
+				self._settings.ongPlaceholder.html(html);
+				
+				self._settings.contentPlaceholder.addClass('finito');
+				jQuery('.finito .ong').bind('click', function(){
+					self.saveDonation();
+				});
+			}
 		}
 	},
-	
-	showSamePage: function() {
-		
-	},
-	
+
+	/**
+	 * This function is used when the user close the lightbox to reset all html elements
+	 * */
 	reset: function() {
 		if(this._settings) {
 			this._settings.placeholder.empty();
 			this._settings.ongPlaceholder.empty();
 			this._settings.infoPlaceholder.empty();
 			this._settings.messagePlaceholder.empty();
+			if(this._settings.contentPlaceholder.hasClass('finito')) this._settings.contentPlaceholder.removeClass('finito');
+			this._settings.messagePlaceholder.removeClass('displayed');
 		}
 		this._settings = null;
 		this._status = 'none';
@@ -238,11 +203,26 @@ Donator_Object_Video.prototype = {
 	 * save the click on the data base and show a success message to the user*/
 	saveDonation: function() {
 		var self = this;
-		var html = '<div id="donation-done">Muchas gracias, acabas de donar 0,20€ a una buena causa</div>';
-		this._settings.messagePlaceholder.replaceWith(html);
-		this._settings.messagePlaceholder.show("slow");
+		var html = '<p>Muchas gracias, has donado 0,20€ a una buena causa</p><p>Haz click <span class="link">aqui</span> para ver más vídeos y seguir colaborando';
+		self._settings.messagePlaceholder.addClass('displayed');
+		self._settings.messagePlaceholder.html(html);
+		self._settings.messagePlaceholder.fadeIn("slow");
+		
+		/*
+		jQuery.ajax({
+			  url: url,
+			//  type: POST,
+			  success: function() {
+					//alert('success');
+					var html = '<p>Muchas gracias, has donado 0,20€ a una buena causa</p><p>Haz click <span class="link">aqui</span> para ver más vídeos y seguir colaborando';
+					self._settings.messagePlaceholder.addClass('displayed');
+					self._settings.messagePlaceholder.html(html);
+					self._settings.messagePlaceholder.fadeIn("slow");
+				}
+			}).done(function ( data ) {
+			 // alert('done');
+			});*/
 		this._settings.player.disable(true);
-		this.ongHTMLoriginal();
 		
 /*		jQuery.ajax({
 			type: "POST",

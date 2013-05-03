@@ -1,17 +1,11 @@
-<?php
-/**
- * Front to the WordPress application. This file doesn't do anything, but loads
- * wp-blog-header.php which does and tells WordPress to load the theme.
- *
- * @package WordPress
- */
+<?php 
+require_once 'donator/model/global_var.php';
 
-/**
- * Tells WordPress to load the WordPress theme and output it.
- *
- * @var bool
- */
-define('WP_USE_THEMES', true);
+require "donator/model/db_connection.php";
 
-/** Loads the WordPress Environment and Template */
-require('./wp-blog-header.php');
+require "donator/model/register.php";
+
+$page = "content_construction.php";
+require "donator/view/templates/main.php";
+
+require "donator/model/db_connection_close.php";

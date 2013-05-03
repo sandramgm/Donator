@@ -5,6 +5,7 @@
 
 $campaigns = $wpdb->get_results("SELECT * FROM donator_campaign WHERE status = 1");
 $donator_page = $_SERVER["REQUEST_URI"];
+
 $json_campaigns = json_encode($campaigns); 
 
 echo "MY ACTIVE CAMPAIGNS: " . $json_campaigns; 

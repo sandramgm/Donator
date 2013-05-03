@@ -1,0 +1,5 @@
+<div class="box">
+	<h1>Aviso legal</h1>
+	<p>Con la cumplimentación y envío del presente formulario, usted consiente que los datos personales proporcionados a través de nuestra página web <a href="donator.es">www.donator.es</a> pasen a formar parte de un fichero propiedad de la Sociedad DONATOR WORLD, S.L., con el fin de mantenerle informado de las campañas, promociones y actuaciones de prospección comercial que se realicen, así como para fines estadísticos.</p>
+	<p>Podrá ejercer, si lo desea, su derecho de acceso, rectificación, cancelación y oposición al tratamiento de sus datos personales, en los términos y condiciones previstos en la propia LOPD, dirigiéndose a: “Departamento LOPD” a través del correo electrónico <a href="mailto:donator@donator.es">donator@donator.es</a><i>,</i><i> adjuntando copia de su DNI o Pasaporte.
+</div>

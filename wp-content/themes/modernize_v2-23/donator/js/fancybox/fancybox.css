@@ -168,7 +168,7 @@
 	overflow: hidden;
 }
 
-.fancybox-overlay {
+.fancybox-overlay, #donation-done.displayed {
 	position: absolute;
 	top: 0;
 	left: 0;

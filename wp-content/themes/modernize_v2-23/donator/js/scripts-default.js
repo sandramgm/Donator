@@ -11,11 +11,14 @@ jQuery('#donation-done').css('display','block');*/
 
 var jsonDonatorCampaigns = "<?= $json_campaigns ?>";//"<?= $json_campaigns ?>';
 
-//var url = "<?php echo $donator_page; ?>";
+var url = "<?php echo $donator_page; ?>";
+
 //var url = "http://donator.es/nuestros-videos-2/#videoDonator";
 var active_page = "http://donator.es/wp-content/themes/modernize_v2-23/donator/model.php";
 
-
+/**
+ * Sticky header, when user scrolls down the main navigation remains at the top all the time
+ * */
 var stickyHeader = jQuery('#donator-menu').offset().top;
 jQuery(window).scroll(function(){
 	if( jQuery(window).scrollTop() > stickyHeader ) {

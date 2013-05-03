@@ -432,7 +432,7 @@ div.pagination span{ }
 /*--- Sidebar ---*/
 div.gdl-left-sidebar{ float: left; }
 div.gdl-right-sidebar{ float: left; }
-div.gdl-page-item{ float: right; background-color:#fff;margin: 50px 0;padding-left: 20px;}
+div.gdl-page-item{ float: right; background-color:#fff;margin: 50px 0;}
 div.gdl-page-float-left{ float: left; }
 
 div.custom-sidebar { border-color: inherit; margin-bottom: 40px; clear: both; }

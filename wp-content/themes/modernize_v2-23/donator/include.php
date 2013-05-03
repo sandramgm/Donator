@@ -38,3 +38,6 @@ function donator_styles_method() {
 add_action('wp_enqueue_scripts', 'donator_scripts_method'); 
 add_action('wp_enqueue_scripts', 'donator_widgets_method');
 add_action('wp_print_styles', 'donator_styles_method'); 
+
+
+$donator_page = $_SERVER["REQUEST_URI"];
